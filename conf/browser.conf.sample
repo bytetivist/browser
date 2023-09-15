@@ -1,0 +1,41 @@
+[zymod]
+node_exec_path=/opt/gc/zy/lib/zy_nodejs/bin/node
+node_exec_script_path=/opt/gc/zy/lib/zy_nodejs/zymod_browser.js
+google_chrome_path=/usr/bin/google-chrome
+node_js_command_line_parameters=--no-sandbox
+env_node_modules_path=/opt/gc/zy/lib/zy_nodejs/node_modules/
+browser_url=https://www.foo.com
+json_path=/opt/gc/zy/var/lib/
+jpg_path=/opt/gc/zy/var/lib/
+
+
+[loggers]
+keys = root
+
+[formatters]
+keys = defaultFormatter
+
+[formatter_defaultFormatter]
+format = %(asctime)s %(process)s [%(levelname)s] %(message)s
+datefmt = %Y-%m-%d %H:%M:%S
+class = logging.Formatter
+
+[handlers]
+keys = defaultHandler, fileHandler
+
+[handler_defaultHandler]
+class = StreamHandler
+level = INFO
+formatter = defaultFormatter
+args = (sys.stdout,)
+
+[handler_fileHandler]
+class = logging.handlers.RotatingFileHandler
+level = INFO
+formatter = defaultFormatter
+args = ('/var/log/zy/browser.log', 'a', 100000000, 3, 'utf-8', False)
+
+[logger_root]
+level = INFO
+handlers = defaultHandler, fileHandler
+qualname = root
